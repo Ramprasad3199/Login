@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:src="@drawable/application_logo"
+
         android:layout_marginBottom="10dp"/>
 
     <TextView
