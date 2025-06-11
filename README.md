@@ -7,11 +7,11 @@ A sleek, modern, and user-friendly Login and Signup UI for Android applications 
 
 🚀 Features
 - 🔒 Login Screen
+
   - Email and Password fields with icons
   - "Remember Me" checkbox
   - "Forgot Password?" link
-
-Scrolls smoothly when keyboard appears
+  - Scrolls smoothly when keyboard appears
 
 - 📝 Signup Screen
   - Full Name, Email, Password, Confirm Password fields
