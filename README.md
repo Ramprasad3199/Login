@@ -1,4 +1,4 @@
-<h1 align="center">📱 Android Login & Signup UI</h1>
+<h1 align="center">Login & Signup UI</h1>
 
 
 A sleek, modern, and user-friendly Login and Signup UI for Android applications built with XML. This project provides a solid foundation for integrating user authentication using Firebase, REST APIs, or local storage. Designed to be fully responsive and mobile-friendly with custom styling and smooth keyboard handling.
