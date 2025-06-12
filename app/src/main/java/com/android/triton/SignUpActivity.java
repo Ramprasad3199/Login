@@ -36,19 +36,15 @@ public class SignUpActivity extends AppCompatActivity {
             if (userName.isEmpty() || userEmail.isEmpty() || userPhone.isEmpty() || userPassword.isEmpty()) {
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
             } else {
-                // Save to SharedPreferences
-                getSharedPreferences("UserData", MODE_PRIVATE)
-                        .edit()
-                        .putString("name", userName)
-                        .putString("email", userEmail)
-                        .putString("phone", userPhone)
-                        .putString("password", userPassword)
-                        .apply();
-
-                Toast.makeText(this, "Registered successfully!", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-                finish();
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                if (UserStorage.userExists(this, userEmail)) {
+                    Toast.makeText(this, "User already exists. Please login.", Toast.LENGTH_SHORT).show();
+                } else {
+                    UserStorage.saveUser(this, userName, userEmail, userPhone, userPassword);
+                    Toast.makeText(this, "Registered successfully!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+                    finish();
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                }
             }
         });
 
@@ -59,4 +55,3 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 }
-

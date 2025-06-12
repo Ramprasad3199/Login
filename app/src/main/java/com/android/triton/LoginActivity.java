@@ -1,13 +1,15 @@
 package com.android.triton;
 
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     EditText username, password;
@@ -29,36 +31,46 @@ public class LoginActivity extends AppCompatActivity {
             String enteredPassword = password.getText().toString().trim();
 
             if (enteredEmail.isEmpty() || enteredPassword.isEmpty()) {
-                Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
+                showDialog("All fields are required");
             } else {
-                // Get saved data
-                SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
-                String savedEmail = prefs.getString("email", null);
-                String savedPassword = prefs.getString("password", null);
+                if (!UserStorage.userExists(this, enteredEmail)) {
+                    showDialog("User does not exist. Please create a new account and then log in.");
+                } else if (UserStorage.validateLogin(this, enteredEmail, enteredPassword)) {
+                    JSONObject userDetails = UserStorage.getUserDetails(this, enteredEmail);
+                    String name = userDetails.optString("name");
+                    String phone = userDetails.optString("phone");
 
-                if (savedEmail != null && savedPassword != null
-                        && enteredEmail.equals(savedEmail)
-                        && enteredPassword.equals(savedPassword)) {
+                    // Save session
+                    SessionManager sessionManager = new SessionManager(this);
+                    sessionManager.createLoginSession(enteredEmail);
 
                     Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
-                    intent.putExtra("name", prefs.getString("name", ""));
-                    intent.putExtra("email", savedEmail);
-                    intent.putExtra("phone", prefs.getString("phone", ""));
+                    intent.putExtra("name", name);
+                    intent.putExtra("email", enteredEmail);
+                    intent.putExtra("phone", phone);
                     startActivity(intent);
                     finish();
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
                 } else {
-                    Toast.makeText(this, "Invalid credentials", Toast.LENGTH_SHORT).show();
+                    showDialog("Invalid credentials");
                 }
             }
         });
-
 
         signupBtn.setOnClickListener(v -> {
             startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
             finish();
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         });
+    }
+
+    // Show dialog function
+    private void showDialog(String message) {
+        new AlertDialog.Builder(this)
+                .setTitle("Login Failed")
+                .setMessage(message)
+                .setPositiveButton("OK", null)
+                .setCancelable(false)
+                .show();
     }
 }
