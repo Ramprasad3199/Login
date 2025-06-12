@@ -1,4 +1,5 @@
-<h1 align="center">Login & Signup UI</h1>
+<h1 align="center">Multiple User Login</h1>
+
 
 
 A sleek, modern, and user-friendly Login and Signup UI for Android applications built with XML. This project provides a solid foundation for integrating user authentication using Firebase, REST APIs, or local storage. Designed to be fully responsive and mobile-friendly with custom styling and smooth keyboard handling.
@@ -12,11 +13,13 @@ A sleek, modern, and user-friendly Login and Signup UI for Android applications 
   - "Remember Me" checkbox
   - "Forgot Password?" link
   - Scrolls smoothly when keyboard appears
+  - Supports Multiple user login
 
 - 📝 Signup Screen
   - Full Name, Email, Password, Confirm Password fields
   - Input validation-ready structure
   - Prominent call-to-action for new users
+  - Supports Multiple user registraction
 
 - 🎨 Modern UI Design
   - Fullscreen background image
@@ -26,6 +29,8 @@ A sleek, modern, and user-friendly Login and Signup UI for Android applications 
 - 📱 Mobile Friendly
   - adjustResize for keyboard-aware UI
   - Scrollable views for small screens
+ 
+https://github.com/user-attachments/assets/9e675f00-7dcf-4c91-9bb3-a579bce06f1a
 
 🤝 Contributing
 
